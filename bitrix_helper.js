@@ -1066,7 +1066,7 @@ const bitrix_helper = function ()
             convertButtonStyle = 'button[id$="_convert_button"].ui-btn-extra {background-color: #ddd; border-color: #ddd}'
             convertLabelStyle = 'button[id$="_convert_label"].ui-btn-main {padding: 0; margin: 0; width: 0; font-size: 0; border-color: #ddd}'
             convertContainerStyle = 'div.ui-btn-split.ui-btn-primary {border-color: #ddd}'
-            appendStyle(converButtonStyle + convertLabelStyle + convertContainerStyle)
+            appendStyle(convertButtonStyle + convertLabelStyle + convertContainerStyle)
 
             // Убирает выбор у кнопки "Создать на основании сделку + контакт"
             buttonMenuStyle = '#entity_progress_success_btn_menu.webform-small-button-right-part {display: none}'
