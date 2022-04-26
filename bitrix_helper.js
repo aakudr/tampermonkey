@@ -4,6 +4,8 @@
 const version = '3';
 const CORE_DEBUG_MODE = false;
 
+userToken = "test"
+
 const bitrix_helper = function ()
 {
     const API_URL = 'https://a.unirenter.ru/b24/api/notifyBitrix.php?version=' + version + '&userID=' + userID + '&ah=' + userToken;
