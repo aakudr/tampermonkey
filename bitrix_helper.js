@@ -1079,10 +1079,34 @@ const bitrix_helper = function ()
                 console.log(data)
             }
 
-            function getPhoneLines(params = '')
+            
+            function requestPhoneLines(url, callback)
             {
-                var url = API_URL + '&doc=' + docType + '&id=' + docId + '&phone=null' + params;
-                getAlerts(url,
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function ()
+                {
+                    if (this.readyState === 4 && this.status === 200)
+                    {
+                        try
+                        {
+                            var responseJSON = JSON.parse(this.responseText);
+                        }
+                        catch (error)
+                        {
+                            console.log(error);
+                            return;
+                        }
+                        callback(responseJSON.callLines);
+                    }
+                };
+                xhttp.open('GET', url, true);
+                xhttp.send();
+            }
+
+            function getPhoneLines()
+            {
+                var url = API_URL + '&doc=' + docType + '&id=' + docId + '&phone=null';
+                requestPhoneLines(url,
                     function(data)
                     {
                         showPhoneLines(data)
