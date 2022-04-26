@@ -15,28 +15,19 @@
 // ==/UserScript==
 
 // Режим отладки. 0 - отключен; 1 - включен
-var DEBUG_MODE = 0;
+var DEBUG_MODE = 1;
 
 var userID = 1;
 var versionID=2;
 
-testFunc();
+let userToken = '9bae926779705bce2a7d96ae0cf2f2c8'
 
-function addGlobalStyle(css) {
-    var head, style;
-    head = document.getElementsByTagName('head')[0];
-    if (!head) { return; }
-    style = document.createElement('style');
-    style.type = 'text/css';
-    style.innerHTML = css;
-    head.appendChild(style);
+bitrix_helper()
+
+window.onload = function()
+{
+   console.log('debug start')
+   let els = document.getElementsByClassName('ui-btn-icon-phone-call')
+   console.log(els[0])
+   document.getElementsByClassName('ui-btn-icon-phone-call').item(0).innerHTML = "asdfasdf"
 }
-
-
-
-addGlobalStyle('button[id$="_convert_button"].ui-btn-extra {background-color: #ddd}')
-addGlobalStyle('button[id$="_convert_label"].ui-btn-main {padding: 0; margin: 0; width: 0}')
-document.body.innerHTML = document.body.innerHTML.replace(/Сделку \+ контакт/g,"");
-
-document.querySelectorAll('button[id^="toolbar_lead_details_"]')[3].setAttribute('style', 'background-color: #ddd')
-document.querySelectorAll('button[id^="toolbar_lead_details_"]')[2].setAttribute('style', 'padding: 0; margin: 0; width: 0')
