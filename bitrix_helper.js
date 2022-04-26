@@ -1199,5 +1199,5 @@ const bitrix_helper = function ()
         }, 500);
     }
 
-
+    console.log('test')
 };
