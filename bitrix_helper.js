@@ -1075,10 +1075,10 @@ const bitrix_helper = function ()
             appendStyle(buttonMenuStyle + buttonContainerStyle)
             
             function showPhoneLines(data) {
-                DEBUG == 1 && console.log('phone lines ok')
-                DEBUG == 1 && console.log(data)
+                DEBUG_MODE == 1 && console.log('phone lines ok')
+                DEBUG_MODE == 1 && console.log(data)
 
-                $( "<p>Test</p>" ).insertAfter( ".ui-btn-icon-phone-call" );
+                $("<p>Test</p>").insertAfter(".ui-btn-icon-phone-call");
             }
 
             
