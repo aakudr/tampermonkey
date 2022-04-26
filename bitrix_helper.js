@@ -4,7 +4,7 @@
 const version = '3';
 const CORE_DEBUG_MODE = false;
 
-userToken = "test"
+let userToken = "test"
 
 const bitrix_helper = function ()
 {
