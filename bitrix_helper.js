@@ -1201,5 +1201,9 @@ const bitrix_helper = function ()
         }, 500);
     }
 
-    console.log('test')
+    // Изменение внешнего вида кнопки "Сделку + контакт"
+    convert_button_style = 'button[id$="_convert_button"].ui-btn-extra {background-color: #ddd; border-color: #ddd}\n'
+    convert_label_style = 'button[id$="_convert_button"].ui-btn-extra {background-color: #ddd; border-color: #ddd}\n'
+    convert_container_style = 'div.ui-btn-split.ui-btn-primary {border-color: #ddd}'
+    appendStyle(convert_button_style + convert_label_style + convert_container_style)
 };
