@@ -1081,7 +1081,7 @@ const bitrix_helper = function ()
 
             function getPhoneLines(params = '')
             {
-                var url = API_URL + '&doc=' + docType + '&id=' + docId + '&phone=' + getPhoneNumber() + params;
+                var url = API_URL + '&doc=' + docType + '&id=' + docId + '&phone=null' + params;
                 getAlerts(url,
                     function(data)
                     {
