@@ -1061,6 +1061,37 @@ const bitrix_helper = function ()
                 });
             });
         }, 500);
+
+        if(docType === 'lead') {
+            convertButtonStyle = 'button[id$="_convert_button"].ui-btn-extra {background-color: #ddd; border-color: #ddd}'
+            convertLabelStyle = 'button[id$="_convert_label"].ui-btn-main {padding: 0; margin: 0; width: 0; font-size: 0; border-color: #ddd}'
+            convertContainerStyle = 'div.ui-btn-split.ui-btn-primary {border-color: #ddd}'
+            appendStyle(converButtonStyle + convertLabelStyle + convertContainerStyle)
+
+            // Убирает выбор у кнопки "Создать на основании сделку + контакт"
+            buttonMenuStyle = '#entity_progress_success_btn_menu.webform-small-button-right-part {display: none}'
+            buttonContainerStyle = '#entity_progress_success_btn_inner_wrapper.webform-small-button.webform-small-button-accept {padding-right: 18px}'
+            appendStyle(buttonMenuStyle + buttonContainerStyle)
+            
+            function showPhoneLines(data) {
+                console.log('phone lines ok')
+                console.log(data)
+            }
+
+            function getPhoneLines()
+            {
+                var url = API_URL + '&doc=' + docType + '&id=' + docId + '&phone=' + getPhoneNumber() + params;
+                getAlerts(url,
+                    function(data)
+                    {
+                        showPhoneLines(data)
+                    }
+                );
+            }     
+            
+            getPhoneLines();
+        }
+
     }
 
 
@@ -1199,14 +1230,5 @@ const bitrix_helper = function ()
         }, 500);
     }
 
-    // Изменение внешнего вида кнопки "Сделку + контакт"
-    convert_button_style = 'button[id$="_convert_button"].ui-btn-extra {background-color: #ddd; border-color: #ddd}'
-    convert_label_style = 'button[id$="_convert_label"].ui-btn-main {padding: 0; margin: 0; width: 0; font-size: 0; border-color: #ddd}'
-    convert_container_style = 'div.ui-btn-split.ui-btn-primary {border-color: #ddd}'
-    appendStyle(convert_button_style + convert_label_style + convert_container_style)
 
-    // Убирает выбор у кнопки "Создать на основании"
-    button_menu_style = '#entity_progress_success_btn_menu.webform-small-button-right-part {display: none}'
-    button_container_style = '#entity_progress_success_btn_inner_wrapper.webform-small-button.webform-small-button-accept {padding-right: 18px}'
-    appendStyle(button_menu_style + button_container_style)
 };
