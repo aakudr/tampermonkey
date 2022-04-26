@@ -1063,6 +1063,7 @@ const bitrix_helper = function ()
         }, 500);
 
         if(docType === 'lead') {
+            //Прячет кнопку "Сделку + контакт" на странице лида
             let convertButtonStyle = 'button[id$="_convert_button"].ui-btn-extra {background-color: #ddd; border-color: #ddd}'
             let convertLabelStyle = 'button[id$="_convert_label"].ui-btn-main {padding: 0; margin: 0; width: 0; font-size: 0; border-color: #ddd}'
             let convertContainerStyle = 'div.ui-btn-split.ui-btn-primary {border-color: #ddd}'
@@ -1078,7 +1079,7 @@ const bitrix_helper = function ()
                 console.log(data)
             }
 
-            function getPhoneLines()
+            function getPhoneLines(params = '')
             {
                 var url = API_URL + '&doc=' + docType + '&id=' + docId + '&phone=' + getPhoneNumber() + params;
                 getAlerts(url,
