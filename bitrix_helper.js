@@ -1077,8 +1077,6 @@ const bitrix_helper = function ()
             function showPhoneLines(data) {
                 DEBUG_MODE == 1 && console.log('phone lines ok')
                 DEBUG_MODE == 1 && console.log(data)
-
-                $("<p>Test</p>").insertAfter(".ui-btn-icon-phone-call");
             }
 
             
