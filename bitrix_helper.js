@@ -1075,8 +1075,10 @@ const bitrix_helper = function ()
             appendStyle(buttonMenuStyle + buttonContainerStyle)
             
             function showPhoneLines(data) {
-                console.log('phone lines ok')
-                console.log(data)
+                DEBUG == 1 && console.log('phone lines ok')
+                DEBUG == 1 && console.log(data)
+
+                $( "<p>Test</p>" ).insertAfter( ".ui-btn-icon-phone-call" );
             }
 
             
@@ -1096,7 +1098,7 @@ const bitrix_helper = function ()
                             console.log(error);
                             return;
                         }
-                        callback(responseJSON.callLines);
+                        callback(responseJSON.callLine);
                     }
                 };
                 xhttp.open('GET', url, true);
