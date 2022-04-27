@@ -1080,7 +1080,7 @@ const bitrix_helper = function ()
 
                 $(document).ready(function() {
                     appendStyle(".dropdown {position: relative; display: inline-block; padding: 0px 16px}\
-.dropdown-content {display: none; position: absolute; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000;}\
+.dropdown-content {display: none; position: relative; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000;}\
 .dropdown:hover .dropdown-content {display: block;}\
 .call-line {display: block; height: 2rem; line-height: 2rem;} .call-line:hover {background-color: #eee}")
                     var id = setInterval(function() {
