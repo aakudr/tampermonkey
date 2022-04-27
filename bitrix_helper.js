@@ -1084,16 +1084,15 @@ const bitrix_helper = function ()
 .dropdown:hover .dropdown-content {display: block;}")
                     var id = setInterval(function() {
                         var t = $(".ui-btn-icon-phone-call" )
-                        t.after('\
-                <div class="dropdown call-lines">\
-                  <span>Выбрать линии</span>\
-                  <div class="dropdown-content">\
-                    <p>Линия 1</p>\
-                  </div>\
-                </div>');
+                        t.after('<div class="dropdown call-lines"><span>Выбрать линии</span><div class="dropdown-content"></div></div>');
                 
                         if($('.call-lines').length) {
                             clearInterval(id)
+                            var dropdown = $(".call-lines")
+                            var phone = getPhoneNumber()
+                            for (var i = 0; i < data.length; i++) {
+                                dropdown.append(`<a href="callto:${data[i].prefix}${phone}" class="call-line">${data[i].lineName}`)
+                            }
                         }
                         console.log(t)
                     }, 500)
