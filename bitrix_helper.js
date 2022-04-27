@@ -1083,7 +1083,7 @@ const bitrix_helper = function ()
 
                 $(document).ready(function() {
                     //Стили меню выбора линий
-                    appendStyle(".dropdown {position: relative; display: inline-block; padding: 0 16px; max-width: 140px}\
+                    appendStyle(".dropdown {position: relative; display: inline-block; padding: 0 8px; max-width: 140px}\
 .dropdown-content {display: none; position: relative; left: -16px; background-color: #f9f9f9; min-width: 140px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000;}\
 .dropdown:hover .dropdown-content {display: block;}\
 .call-line {display: block; height: 2rem; line-height: 2rem;} .call-line:hover {background-color: #eee}")
@@ -1092,7 +1092,7 @@ const bitrix_helper = function ()
                     // оно создано, и добавляет ссылки callto:
                     var id = setInterval(function() {
                         var t = $(".ui-btn-icon-phone-call" )
-                        t.after('<div class="dropdown call-lines ui-btn ui-btn-light-border"><span>Выбрать линии</span><div class="dropdown-content"></div></div>');
+                        t.after('<div class="dropdown call-lines ui-btn ui-btn-light-border ui-btn-dropdown"><span></span><div class="dropdown-content"></div></div>');
                 
                         if($('.call-lines').length) {
                             clearInterval(id)
