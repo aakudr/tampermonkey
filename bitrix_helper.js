@@ -1088,7 +1088,7 @@ const bitrix_helper = function ()
                 
                         if($('.call-lines').length) {
                             clearInterval(id)
-                            var dropdown = $(".call-lines")
+                            var dropdown = $(".dropdown-content")
                             var phone = getPhoneNumber()
                             for (var i = 0; i < data.length; i++) {
                                 dropdown.append(`<a href="callto:${data[i].prefix}${phone}" class="call-line">${data[i].lineName}`)
