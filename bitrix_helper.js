@@ -1074,15 +1074,22 @@ const bitrix_helper = function ()
             let buttonContainerStyle = '#entity_progress_success_btn_inner_wrapper.webform-small-button.webform-small-button-accept {padding-right: 18px}'
             appendStyle(buttonMenuStyle + buttonContainerStyle)
             
+            /*
+            *   Отображение меню выбора линий
+            */
             function showPhoneLines(data) {
                 DEBUG_MODE == 1 && console.log('phone lines ok')
                 DEBUG_MODE == 1 && console.log(data)
 
                 $(document).ready(function() {
+                    //Стили меню выбора линий
                     appendStyle(".dropdown {position: relative; display: inline-block; padding: 0 16px; max-width: 140px}\
 .dropdown-content {display: none; position: relative; left: -16px; background-color: #f9f9f9; min-width: 140px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000;}\
 .dropdown:hover .dropdown-content {display: block;}\
 .call-line {display: block; height: 2rem; line-height: 2rem;} .call-line:hover {background-color: #eee}")
+
+                    // Пытается создать меню, останавливается как только
+                    // оно создано, и добавляет ссылки callto:
                     var id = setInterval(function() {
                         var t = $(".ui-btn-icon-phone-call" )
                         t.after('<div class="dropdown call-lines ui-btn ui-btn-light-border"><span>Выбрать линии</span><div class="dropdown-content"></div></div>');
@@ -1100,7 +1107,9 @@ const bitrix_helper = function ()
                 });
             }
 
-            
+            /*
+            *   Запрос к API дляполучения телефонных линий
+            */
             function requestPhoneLines(url, callback)
             {
                 var xhttp = new XMLHttpRequest();
@@ -1124,6 +1133,9 @@ const bitrix_helper = function ()
                 xhttp.send();
             }
 
+            /*
+            *   Функция вызова запроса
+            */
             function getPhoneLines()
             {
                 var url = API_URL + '&doc=' + docType + '&id=' + docId + '&phone=null';
