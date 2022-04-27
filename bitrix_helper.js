@@ -1079,38 +1079,16 @@ const bitrix_helper = function ()
                 DEBUG_MODE == 1 && console.log(data)
 
                 $(document).ready(function() {
-                    // the dashboard uses AngularJS but we're using jQuery
-                    // upon loading completion, the page makes an async
-                    // call to get its data...but instead of intercepting
-                    // and or injecting the code on callback completion
-                    // we're just doing this the "lazy" way and just check
-                    // if the XML nodes of interest already exist
-
-                    appendStyle(".dropdown {\
-                  position: relative;\
-                  display: inline-block;\
-                }\
-                \
-                .dropdown-content {\
-                  display: none;\
-                  position: absolute;\
-                  background-color: #f9f9f9;\
-                  min-width: 160px;\
-                  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\
-                  padding: 12px 16px;\
-                  z-index: 1;\
-                }\
-                \
-                .dropdown:hover .dropdown-content {\
-                  display: block;\
-                }")
+                    appendStyle(".dropdown {position: relative; display: inline-block;}\
+.dropdown-content {display: none; position: absolute; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); padding: 12px 16px; z-index: 1;}\
+.dropdown:hover .dropdown-content {display: block;}")
                     var id = setInterval(function() {
                         var t = $(".ui-btn-icon-phone-call" )
                         t.after('\
                 <div class="dropdown call-lines">\
-                  <span>Mouse over me</span>\
+                  <span>Выбрать линии</span>\
                   <div class="dropdown-content">\
-                    <p>Hello World!</p>\
+                    <p>Линия 1</p>\
                   </div>\
                 </div>');
                 
