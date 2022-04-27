@@ -1075,9 +1075,10 @@ const bitrix_helper = function ()
             appendStyle(buttonMenuStyle + buttonContainerStyle)
             
             // Изменение текста кнопки "Создать на основании сделку + контакт"
-            $(document).ready(() => {
-                span = $('span:contains("Создать на основании")')
-                span.text(span.text().replace("Создать на основании", "Создать"));
+            watchDomMutation('#entity_progress_TERMINATION', document.body, (node) => {
+                document.querySelector('#entity_progress_success_btn_inner_wrapper > span:nth-child(1)').innerHTML = "Создать "
+                /* span = $('#entity_progress_success_btn_inner_wrapper:nth-child(1)')
+                span.text(span.text().replace("Создать на основании", "Создать")); */
             })
 
             /*
@@ -1113,7 +1114,7 @@ const bitrix_helper = function ()
             }
 
             /*
-            *   Запрос к API дляполучения телефонных линий
+            *   Запрос к API для получения телефонных линий
             */
             function requestPhoneLines(url, callback)
             {
