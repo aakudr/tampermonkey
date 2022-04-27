@@ -1076,7 +1076,8 @@ const bitrix_helper = function ()
             
             // Изменение текста кнопки "Создать на основании сделку + контакт"
             $(document).ready(() => {
-                $(':contains("Создать на основании")').html("Создать ")
+                span = $('span:contains("Создать на основании")')
+                span.text(span.text().replace("Создать на основании", "Создать"));
             })
 
             /*
