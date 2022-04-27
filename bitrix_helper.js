@@ -1085,7 +1085,7 @@ const bitrix_helper = function ()
 .call-line {display: block; height: 2rem; line-height: 2rem;} .call-line:hover {background-color: #eee}")
                     var id = setInterval(function() {
                         var t = $(".ui-btn-icon-phone-call" )
-                        t.after('<div class="dropdown call-lines"><span>Выбрать линии</span><div class="dropdown-content"></div></div>');
+                        t.after('<div class="dropdown call-lines ui-btn ui-btn-light-border"><span>Выбрать линии</span><div class="dropdown-content"></div></div>');
                 
                         if($('.call-lines').length) {
                             clearInterval(id)
