@@ -1074,6 +1074,11 @@ const bitrix_helper = function ()
             let buttonContainerStyle = '#entity_progress_success_btn_inner_wrapper.webform-small-button.webform-small-button-accept {padding-right: 18px}'
             appendStyle(buttonMenuStyle + buttonContainerStyle)
             
+            // Изменение текста кнопки "Создать на основании сделку + контакт"
+            $(document).ready(() => {
+                $(':contains("Создать на основании")').html("Создать ")
+            })
+
             /*
             *   Отображение меню выбора линий
             */
