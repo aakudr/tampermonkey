@@ -1091,6 +1091,7 @@ const bitrix_helper = function ()
                 $(document).ready(function() {
                     //Стили меню выбора линий
                     appendStyle(".dropdown {position: relative; display: inline-block; padding: 0 8px; max-width: 36px}\
+#pagetitle-menu {z-index: 11}\
 .dropdown-content {display: none; position: relative; left: -16px; top: 38px; background-color: #f9f9f9; min-width: 140px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000;}\
 .dropdown:hover .dropdown-content {display: block;}\
 .call-line {display: block; height: 2rem; line-height: 2rem;} .call-line:hover {background-color: #eee} .call-line:before {right: 15px !important}")
