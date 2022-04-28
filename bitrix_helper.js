@@ -1099,7 +1099,7 @@ const bitrix_helper = function ()
                     let number = getPhoneNumber().replace(/\D/g, '');
 
                     const createCallLinkElement = (line) => {
-                        return `<a class="crm-entity-phone-number call-line" title="${line.lineName}" href="callto://${line.prefix}${number}"` + 
+                        return `<a class="call-line" title="${line.lineName}" href="callto://${line.prefix}${number}"` + 
                         `onclick="if(typeof(top.BXIM) !== \'undefined\') { top.BXIM.phoneTo(\'${line.prefix}${number}\', ` + 
                         `{&quot;ENTITY_TYPE_NAME&quot;:&quot;LEAD&quot;,&quot;ENTITY_ID&quot;:${docId},&quot;AUTO_FOLD&quot;:true}); return BX.PreventDefault(event); }">${line.lineName}</a>'`                   }
                     // Пытается создать меню, останавливается как только
