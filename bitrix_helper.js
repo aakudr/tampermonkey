@@ -1097,7 +1097,8 @@ const bitrix_helper = function ()
 .call-line {display: block; height: 2rem; line-height: 2rem;} .call-line:hover {background-color: #eee} .call-line:before {right: 15px !important}")
 
                     let number = getPhoneNumber().replace(/\D/g, '');
-
+                    
+                    //Создание ссылки для звонка из Битрикса
                     const createCallLinkElement = (line) => {
                         return `<a class="call-line" title="${line.lineName}" href="callto://${line.prefix}${number}"` + 
                         `onclick="if(typeof(top.BXIM) !== \'undefined\') { top.BXIM.phoneTo(\'${line.prefix}${number}\', ` + 
