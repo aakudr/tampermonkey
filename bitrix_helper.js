@@ -1101,7 +1101,7 @@ const bitrix_helper = function ()
                     const createCallLinkElement = (line) => {
                         return `<a class="call-line" title="${line.lineName}" href="callto://${line.prefix}${number}"` + 
                         `onclick="if(typeof(top.BXIM) !== \'undefined\') { top.BXIM.phoneTo(\'${line.prefix}${number}\', ` + 
-                        `{&quot;ENTITY_TYPE_NAME&quot;:&quot;LEAD&quot;,&quot;ENTITY_ID&quot;:${docId},&quot;AUTO_FOLD&quot;:true}); return BX.PreventDefault(event); }">${line.lineName}</a>'`                   }
+                        `{&quot;ENTITY_TYPE_NAME&quot;:&quot;LEAD&quot;,&quot;ENTITY_ID&quot;:${docId},&quot;AUTO_FOLD&quot;:true}); return BX.PreventDefault(event); }">${line.lineName}</a>`                   }
                     // Пытается создать меню, останавливается как только
                     // оно создано, и добавляет ссылки callto://
                     var id = setInterval(function() {
