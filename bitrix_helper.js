@@ -1061,88 +1061,88 @@ const bitrix_helper = function ()
                 });
             });
         }, 500);
-        
-        /*
-        *   Отображение меню выбора линий
-        */
-        function showPhoneLines(data) {
-            DEBUG_MODE == 1 && console.log('phone lines ok')
-            DEBUG_MODE == 1 && console.log(data)
+        if(['deal', 'lead'].includes(docType)) {
+            /*
+            *   Отображение меню выбора линий
+            */
+            function showPhoneLines(data) {
+                DEBUG_MODE == 1 && console.log('phone lines ok')
+                DEBUG_MODE == 1 && console.log(data)
 
-            $(document).ready(function() {
-                //Стили меню выбора линий
-                appendStyle(".dropdown {position: relative; display: inline-block; padding: 0 8px; max-width: 36px}\
-#pagetitle-menu {z-index: 11}\
-.dropdown-content {display: none; position: relative; left: -16px; top: 38px; background-color: #f9f9f9; min-width: 140px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000;}\
-.dropdown:hover .dropdown-content {display: block;}\
-.call-line {display: block; height: 2rem; line-height: 2rem;} .call-line:hover {background-color: #eee} .call-line:before {right: 15px !important}")
+                $(document).ready(function() {
+                    //Стили меню выбора линий
+                    appendStyle(".dropdown {position: relative; display: inline-block; padding: 0 8px; max-width: 36px}\
+    #pagetitle-menu {z-index: 11}\
+    .dropdown-content {display: none; position: relative; left: -16px; top: 38px; background-color: #f9f9f9; min-width: 140px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000;}\
+    .dropdown:hover .dropdown-content {display: block;}\
+    .call-line {display: block; height: 2rem; line-height: 2rem;} .call-line:hover {background-color: #eee} .call-line:before {right: 15px !important}")
+                    
+                    //Создание ссылки для звонка из Битрикса
+                    const createCallLinkElement = (line, number) => {
+                        return `<a class="call-line" title="${line.lineName}" href="callto://${line.prefix}${number}"` + 
+                        `onclick="if(typeof(top.BXIM) !== \'undefined\') { top.BXIM.phoneTo(\'${line.prefix}${number}\', ` + 
+                        `{&quot;ENTITY_TYPE_NAME&quot;:&quot;LEAD&quot;,&quot;ENTITY_ID&quot;:${docId},&quot;AUTO_FOLD&quot;:true}); return BX.PreventDefault(event); }">${line.lineName}</a>`                   }
+                    // Пытается создать меню, останавливается как только
+                    // оно создано, и добавляет ссылки callto://
+                    var id = setInterval(function() {
+                        var t = $(".ui-btn-icon-phone-call" )
+                        t.after('<div class="dropdown call-lines ui-btn ui-btn-light-border ui-btn-dropdown"><span></span><div class="dropdown-content"></div></div>');
                 
-                //Создание ссылки для звонка из Битрикса
-                const createCallLinkElement = (line, number) => {
-                    return `<a class="call-line" title="${line.lineName}" href="callto://${line.prefix}${number}"` + 
-                    `onclick="if(typeof(top.BXIM) !== \'undefined\') { top.BXIM.phoneTo(\'${line.prefix}${number}\', ` + 
-                    `{&quot;ENTITY_TYPE_NAME&quot;:&quot;LEAD&quot;,&quot;ENTITY_ID&quot;:${docId},&quot;AUTO_FOLD&quot;:true}); return BX.PreventDefault(event); }">${line.lineName}</a>`                   }
-                // Пытается создать меню, останавливается как только
-                // оно создано, и добавляет ссылки callto://
-                var id = setInterval(function() {
-                    var t = $(".ui-btn-icon-phone-call" )
-                    t.after('<div class="dropdown call-lines ui-btn ui-btn-light-border ui-btn-dropdown"><span></span><div class="dropdown-content"></div></div>');
-            
-                    if($('.call-lines').length) {
-                        clearInterval(id)
-                        var dropdown = $(".dropdown-content")
-                        let number = document.querySelector('title').innerHTML.replace(/\D/g, '')
-                        for (var i = 0; i < data.length; i++) {
-                            dropdown.append(createCallLinkElement(data[i], number))
+                        if($('.call-lines').length) {
+                            clearInterval(id)
+                            var dropdown = $(".dropdown-content")
+                            let number = document.querySelector('title').innerHTML.replace(/\D/g, '')
+                            for (var i = 0; i < data.length; i++) {
+                                dropdown.append(createCallLinkElement(data[i], number))
+                            }
                         }
-                    }
-                    console.log(t)
-                }, 500)
-            });
-        }
+                        console.log(t)
+                    }, 500)
+                });
+            }
 
-        /*
-        *   Запрос к API для получения телефонных линий
-        */
-        function requestPhoneLines(url, callback)
-        {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function ()
+            /*
+            *   Запрос к API для получения телефонных линий
+            */
+            function requestPhoneLines(url, callback)
             {
-                if (this.readyState === 4 && this.status === 200)
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function ()
                 {
-                    try
+                    if (this.readyState === 4 && this.status === 200)
                     {
-                        var responseJSON = JSON.parse(this.responseText);
+                        try
+                        {
+                            var responseJSON = JSON.parse(this.responseText);
+                        }
+                        catch (error)
+                        {
+                            console.log(error);
+                            return;
+                        }
+                        callback(responseJSON.callLine);
                     }
-                    catch (error)
+                };
+                xhttp.open('GET', url, true);
+                xhttp.send();
+            }
+
+            /*
+            *   Функция вызова запроса
+            */
+            function getPhoneLines()
+            {
+                var url = API_URL + '&doc=' + docType + '&id=' + docId + '&phone=null';
+                requestPhoneLines(url,
+                    function(data)
                     {
-                        console.log(error);
-                        return;
+                        showPhoneLines(data)
                     }
-                    callback(responseJSON.callLine);
-                }
-            };
-            xhttp.open('GET', url, true);
-            xhttp.send();
+                );
+            }     
+            
+            getPhoneLines();
         }
-
-        /*
-        *   Функция вызова запроса
-        */
-        function getPhoneLines()
-        {
-            var url = API_URL + '&doc=' + docType + '&id=' + docId + '&phone=null';
-            requestPhoneLines(url,
-                function(data)
-                {
-                    showPhoneLines(data)
-                }
-            );
-        }     
-        
-        getPhoneLines();
-
         if(docType === 'lead') {
             //Прячет кнопку "Сделку + контакт" на странице лида
             let convertButtonStyle = 'button[id$="_convert_button"].ui-btn-extra {background-color: #ddd; border-color: #ddd}'
