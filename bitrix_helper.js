@@ -1093,7 +1093,7 @@ const bitrix_helper = function ()
                         var dropdown = $(".dropdown-content")
                         let number = getPhoneNumber().replace(/\D/g, '');
                         for (var i = 0; i < data.length; i++) {
-                            dropdown.append(createCallLinkElement(data[i]), number)
+                            dropdown.append(createCallLinkElement(data[i], number))
                         }
                     }
                     console.log(t)
