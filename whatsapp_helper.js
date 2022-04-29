@@ -29,6 +29,8 @@
         const beforeNextMessageDelay = 4000; //5000
         // Максимальное время ожидания визуального отчета об отправке сообщения в чате
         const waitUntilMessageSentDelay = 5000; //5000
+        // Авторассылка: интервал авторассылки (секунды)
+        const autoMessageDelay = 60;
 
         // ---*** ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ***---
 
@@ -496,6 +498,15 @@
             massMessagingButton.removeClass('blocked');
             console.warn('ГОТОВО. Ошибок: ' + errorsCount + ' Отправлено: ' + sentCount);
         }
+
+        //Авторассылка сообщений
+        $(document).ready(async () => {
+            console.log("60 seconds")
+            await delay(autoMessageDelay * 1000)
+            console.log("0 seconds")
+            setInterval(doMassMessaging, autoMessageDelay * 1000);
+        })
+        
 
         /**
          * --------------------------------------------------------------------------------------------------------------
