@@ -1091,7 +1091,7 @@ const bitrix_helper = function ()
                     if($('.call-lines').length) {
                         clearInterval(id)
                         var dropdown = $(".dropdown-content")
-                        let number = getPhoneNumber().replace(/\D/g, '');
+                        let number = document.querySelector('title').innerHTML.replace(/\D/g, '')
                         for (var i = 0; i < data.length; i++) {
                             dropdown.append(createCallLinkElement(data[i], number))
                         }
