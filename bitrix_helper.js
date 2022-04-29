@@ -1076,11 +1076,9 @@ const bitrix_helper = function ()
 .dropdown-content {display: none; position: relative; left: -16px; top: 38px; background-color: #f9f9f9; min-width: 140px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000;}\
 .dropdown:hover .dropdown-content {display: block;}\
 .call-line {display: block; height: 2rem; line-height: 2rem;} .call-line:hover {background-color: #eee} .call-line:before {right: 15px !important}")
-
-                let number = getPhoneNumber().replace(/\D/g, '');
                 
                 //Создание ссылки для звонка из Битрикса
-                const createCallLinkElement = (line) => {
+                const createCallLinkElement = (line, number) => {
                     return `<a class="call-line" title="${line.lineName}" href="callto://${line.prefix}${number}"` + 
                     `onclick="if(typeof(top.BXIM) !== \'undefined\') { top.BXIM.phoneTo(\'${line.prefix}${number}\', ` + 
                     `{&quot;ENTITY_TYPE_NAME&quot;:&quot;LEAD&quot;,&quot;ENTITY_ID&quot;:${docId},&quot;AUTO_FOLD&quot;:true}); return BX.PreventDefault(event); }">${line.lineName}</a>`                   }
@@ -1093,9 +1091,9 @@ const bitrix_helper = function ()
                     if($('.call-lines').length) {
                         clearInterval(id)
                         var dropdown = $(".dropdown-content")
-                        var phone = getPhoneNumber()
+                        let number = getPhoneNumber().replace(/\D/g, '');
                         for (var i = 0; i < data.length; i++) {
-                            dropdown.append(createCallLinkElement(data[i]))
+                            dropdown.append(createCallLinkElement(data[i]), number)
                         }
                     }
                     console.log(t)
