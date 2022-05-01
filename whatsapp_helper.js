@@ -1082,6 +1082,6 @@
         }
 
         //Delete update message
-        watchDomMutation('._3z9_h', document.body, (node) => {node.remove()})
+        //watchDomMutation('span._3z9_h', document.body, (node) => {node.remove()})
 
     }
