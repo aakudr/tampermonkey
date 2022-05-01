@@ -438,6 +438,7 @@
                 try {
                     // Открытие окна чата
                     let messageBox = await openChatByPhone(phoneNumber, messageText);
+                    DEBUG_MODE && console.warn('Message box ready')
                     DEBUG_MODE && console.log(messageBox)
                     /* Эмуляция наличия изображений для тестов
                     var imgs = [
@@ -508,9 +509,9 @@
         }
 
         //Авторассылка сообщений
-        $(document).ready(() => {
+        /* $(document).ready(() => {
             setInterval(doMassMessaging, autoMessageDelay * 1000);
-        })
+        }) */
         
 
         /**
