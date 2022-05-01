@@ -172,6 +172,7 @@
                 });
                 setTimeout(() => {
                     let textarea = document.querySelector(textareaSelector);
+                    console.error(textarea)
                     if(textarea.textContent.includes(phoneNumber)) {
                             observer.disconnect();
                             textarea = textarea.querySelector('.copyable-text[role="textbox"]');
