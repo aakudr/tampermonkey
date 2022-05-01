@@ -170,6 +170,16 @@
                         }
                     });
                 });
+                setTimeout(() => {
+                    let textarea = document.querySelector(textareaSelector);
+                    if(textarea.textContent.includes(phoneNumber)) {
+                            observer.disconnect();
+                            textarea = mutation.target.querySelector('.copyable-text[role="textbox"]');
+                            textarea.innerHTML = messageText || '';
+                            eventFire(textarea, 'input');
+                            resolve(textarea.closest('div.copyable-area'));
+                    }
+                }, beforeNextMessageDelay)
                 observer.observe(document.querySelector('#app'), {
                     childList: true,
                     subtree: true,
