@@ -175,6 +175,10 @@
                     subtree: true,
                     attributes: true
                 });
+                setTimeout(() => {
+                    observer.disconnect()
+                    reject('Observer timeout - ' + phoneNumber);
+                }, beforeNextMessageDelay * 2)
             });
         }
 
