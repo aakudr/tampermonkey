@@ -414,8 +414,11 @@
             let doPaste = new Event("do_paste", {bubbles: true});
             const massMessagingButton = $('#massMessagingButton');
             massMessagingButton.addClass('blocked');
+            DEBUG_MODE && console.log("AUTOSEND: button blocked");
             let response = await fetch(massMessagingUrl);
+            DEBUG_MODE && console.log("AUTOSEND: API response received");
             let data = await response.json();
+            DEBUG_MODE && console.log("AUTOSEND: JSON acquired");
 
             if (!data.msg || Object.keys(data.msg).length === 0) {
                 if (!data.msg) console.error('ОШИБКА: неверный формат ответа сервера');
@@ -425,15 +428,17 @@
             } else {
                 var restMessagesCount = Object.keys(data.msg).length;
                 restIndicatorSet(restMessagesCount);
+                DEBUG_MODE && console.log(`AUTOSEND: ${restMessagesCount} messages ready`);
             }
             let errorsCount = 0,
                 sentCount = 0;
             for (let key in data.msg) {
-                let phoneNumber = formatPhoneNumber(data.msg[key].phone),
+                let phoneNumber = formatPhoneNumber(data.msg[key].phone),           
                     messageText = formatTextMessage(data.msg[key].msgText);
                 try {
                     // Открытие окна чата
                     let messageBox = await openChatByPhone(phoneNumber, messageText);
+                    DEBUG_MODE && console.log(messageBox)
                     /* Эмуляция наличия изображений для тестов
                     var imgs = [
                         'https://image.freepik.com/free-vector/the-scheme-of-data-transmission-isometric-secure-connection-cloud-computing-server-room-datacent_39422-875.jpg',
@@ -474,8 +479,10 @@
                     await delay(beforeSendMessageDelay);
                     // Отправка сообщения
                     eventFire(buttonSend, 'click');
+                    DEBUG_MODE && console.log("AUTOSEND: send button clicked");
                     // Отправка отчета о рассылке на Unirenter
                     fetch(massMessagingConfirmUrl + key + '&status=3');
+                    DEBUG_MODE && console.log("AUTOSEND: report sent to Unirenter");
                     // Включение механизма ожидания визуального отчета об отправке сообщения в чате
                     let sendingStatus = '';
                     try {
@@ -493,6 +500,7 @@
                     // Задержка перед переходом к следующему сообщению
                     await delay(beforeNextMessageDelay);
                     restIndicatorSet(--restMessagesCount);
+                    DEBUG_MODE && console.log(`AUTOSEND: ${restMessagesCount} messages left to send`);
                 }
             }
             massMessagingButton.removeClass('blocked');
@@ -500,10 +508,7 @@
         }
 
         //Авторассылка сообщений
-        $(document).ready(async () => {
-            console.log("60 seconds")
-            await delay(autoMessageDelay * 1000)
-            console.log("0 seconds")
+        $(document).ready(() => {
             setInterval(doMassMessaging, autoMessageDelay * 1000);
         })
         
