@@ -513,9 +513,9 @@
         }
 
         //Авторассылка сообщений
-        /* $(document).ready(() => {
+        $(document).ready(() => {
             setInterval(doMassMessaging, autoMessageDelay * 1000);
-        }) */
+        }) 
         
 
         /**
