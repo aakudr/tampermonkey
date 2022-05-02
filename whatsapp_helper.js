@@ -31,6 +31,8 @@
         const waitUntilMessageSentDelay = 5000; //5000
         // Авторассылка: интервал авторассылки (секунды)
         const autoMessageDelay = 60;
+        //Параметр URL API запроса
+        const urlParams='&a=b&c=d';
 
         // ---*** ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ***---
 
@@ -309,7 +311,8 @@
          */
 
         let restMessagesCountIndicator;
-
+        let stopSendingByButton = false;
+        let autoMessageInterval;
         // Создание кнопки
         function addMassMessagingButton() {
             // Добавление CSS стилей
@@ -327,7 +330,8 @@
             restMessagesCountIndicator = $('#restMessagesCountIndicator');
             // Запуск рассылки
             $('#massMessagingButton').click(() => {
-                if (!$('#massMessagingButton').hasClass('blocked')) doMassMessaging();
+                if (!$('#massMessagingButton').hasClass('blocked')) {doMassMessaging()}
+                else {stopSendingByButton = true}
             });
         }
 
@@ -424,6 +428,13 @@
             });
         }
 
+        function archiveCurrentChat() {
+            $('._2nY6U.vq6sj._2_TVt').trigger('hover');
+            DEBUG_MODE && console.log('hovered');
+            $('._1i_wG').eq(-1).trigger('click');
+            DEBUG_MODE && console.log('clicked');
+        }
+
         // Главная функция рассылки сообщений
         async function doMassMessaging() {
             let doPaste = new Event("do_paste", {bubbles: true});
@@ -448,13 +459,16 @@
             let errorsCount = 0,
                 sentCount = 0;
             for (let key in data.msg) {
+                if(stopSendingByButton) {clearInterval(autoMessageInterval); stopSendingByButton = false; return}
                 let phoneNumber = formatPhoneNumber(data.msg[key].phone),           
                     messageText = formatTextMessage(data.msg[key].msgText);
+                let isArchive = data.msg[key].isArchive;
                 try {
                     // Открытие окна чата
                     let messageBox = await openChatByPhone(phoneNumber, messageText);
                     DEBUG_MODE && console.warn('Message box ready')
                     DEBUG_MODE && console.log(messageBox)
+                    if($(".album li").eq(-1).attr("class").includes('message-in')) isArchive = false;
                     /* Эмуляция наличия изображений для тестов
                     var imgs = [
                         'https://image.freepik.com/free-vector/the-scheme-of-data-transmission-isometric-secure-connection-cloud-computing-server-room-datacent_39422-875.jpg',
@@ -508,11 +522,13 @@
                     }
                     sentCount++;
                     console.info('ОТПРАВЛЕНО: ' + phoneNumber + ' - "' + messageText.slice(0, 50) + '" (' + sendingStatus + ')');
+                    
                 } catch (error) {
                     errorsCount++;
                     fetch(massMessagingConfirmUrl + key + '&status=6');
                     console.error('ОШИБКА: ' + error);
                 } finally {
+                    if(isArchive) archiveCurrentChat();
                     // Задержка перед переходом к следующему сообщению
                     await delay(beforeNextMessageDelay);
                     restIndicatorSet(--restMessagesCount);
@@ -525,7 +541,7 @@
 
         //Авторассылка сообщений
         $(document).ready(() => {
-            setInterval(doMassMessaging, autoMessageDelay * 1000);
+            autoMessageInterval = setInterval(doMassMessaging, autoMessageDelay * 1000);
         }) 
         
 
@@ -627,7 +643,7 @@
             var parent2 = document.querySelectorAll('#main header > div');
             if (!parent2 || !parent2[2]) return;
             var title2 = parent2[1].querySelector('span[dir="auto"]');
-            getReq('https://a.unirenter.ru/b24/api/userAction.php?source=whats&version=' + version + '&action=sendMsg&contact=' + encodeURIComponent(title2.innerText) + '&ah=' + hash + '&userID=' + userID + '&phoneID=' + phoneID);
+            getReq('https://a.unirenter.ru/b24/api/userAction.php?source=whats&version=' + version + '&action=sendMsg&contact=' + encodeURIComponent(title2.innerText) + '&ah=' + hash + '&userID=' + userID + '&phoneID=' + phoneID + urlParams);
         }
 
         /**
@@ -636,7 +652,7 @@
          * --------------------------------------------------------------------------------------------------------------
          */
 
-        var notifyUrl = 'https://a.unirenter.ru//b24/api/notifyService.php?do=notifyWhatsapp&version=' + version + '&ah=' + hash + '&userID=' + userID + '&phoneID=' + phoneID;
+        var notifyUrl = 'https://a.unirenter.ru//b24/api/notifyService.php?do=notifyWhatsapp&version=' + version + '&ah=' + hash + '&userID=' + userID + '&phoneID=' + phoneID + urlParams;
 
         //var notifyPhone = null;
         var urlContactParams = null;
@@ -815,7 +831,7 @@
             DEBUG_MODE && console.log('Массив данных:', selectedMessages);
             // DEBUG_MODE && console.log('JSON:', JSON.stringify(selectedMessages));
 
-            fetch('https://a.unirenter.ru/b24/api/whatsapp.php?do=upload&version=' + version + '&ah=' + hash + '&userID=' + userID + '&phoneID=' + phoneID, {
+            fetch('https://a.unirenter.ru/b24/api/whatsapp.php?do=upload&version=' + version + '&ah=' + hash + '&userID=' + userID + '&phoneID=' + phoneID + urlParams, {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
@@ -885,7 +901,7 @@
                     DEBUG_MODE && console.log('messagesCount', messagesCount);
                     let url = 'https://a.unirenter.ru//b24/api/whatsapp.php?do=whatsappIncomeMsg&version='
                         + version + '&ah=' + hash + '&userID=' + userID + '&phoneID=' + phoneID
-                        + urlContactParams;
+                        + urlContactParams + urlParams;
                     //fetch(url).then(r => {});
                     getReq(url);
                 }
