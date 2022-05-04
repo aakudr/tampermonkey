@@ -32,7 +32,7 @@
         // Авторассылка: интервал авторассылки (секунды)
         const autoMessageDelay = 60;
         //Параметр URL API запроса
-        //const urlParams='&a=b&c=d';
+        const urlParams = '';
 
         // ---*** ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ***---
 
