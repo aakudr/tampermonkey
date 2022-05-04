@@ -471,7 +471,7 @@
                     let messageBox = await openChatByPhone(phoneNumber, messageText);
                     DEBUG_MODE && console.warn('Message box ready')
                     DEBUG_MODE && console.log(messageBox)
-                    if($(".album li").eq(-1).attr("class").includes('message-in')) isArchive = false;
+                    if($(".3K4-L")[0].eq(-1).attr("class").includes('message-in')) isArchive = false;
                     /* Эмуляция наличия изображений для тестов
                     var imgs = [
                         'https://image.freepik.com/free-vector/the-scheme-of-data-transmission-isometric-secure-connection-cloud-computing-server-room-datacent_39422-875.jpg',
