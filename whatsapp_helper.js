@@ -430,7 +430,7 @@
 
         function archiveCurrentChat() {
             let currentChat = document.querySelector('._2nY6U.vq6sj._2_TVt')
-            let clickEvent = CustomEvent('click');
+            let clickEvent = new CustomEvent('click');
             let contextmenuEvent = new CustomEvent('contextmenu');
             currentChat.dispatchEvent(contextmenuEvent)
             DEBUG_MODE && console.log('rightclick');
