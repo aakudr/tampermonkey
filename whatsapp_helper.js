@@ -429,10 +429,13 @@
         }
 
         function archiveCurrentChat() {
-            $('._2nY6U.vq6sj._2_TVt').trigger('hover');
-            DEBUG_MODE && console.log('hovered');
-            $('._1i_wG').eq(-1).trigger('click');
-            DEBUG_MODE && console.log('clicked');
+            let currentChat = document.querySelector('._2nY6U.vq6sj._2_TVt')
+            let clickEvent = CustomEvent('click');
+            let contextmenuEvent = new CustomEvent('contextmenu');
+            currentChat.dispatchEvent(contextmenuEvent)
+            DEBUG_MODE && console.log('rightclick');
+            //$('._1i_wG').eq(-1).trigger('click');
+            //DEBUG_MODE && console.log('clicked');
         }
 
         // Главная функция рассылки сообщений
